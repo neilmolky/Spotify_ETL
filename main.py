@@ -1,6 +1,6 @@
 from spotify_recently_played.get_recent_songs import RecentlyPlayed
 
-DATABASE_LOCATION = "sqlite:///my_played_tracks.sqlite"
+DATABASE_LOCATION = "sqlite:///recently_played_tracks.sqlite"
 
 if __name__ == "__main__":
     data = RecentlyPlayed()

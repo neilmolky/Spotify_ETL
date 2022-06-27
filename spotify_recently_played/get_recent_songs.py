@@ -66,7 +66,7 @@ class RecentlyPlayed:
 
         for song in data["items"]:
             track_id = song["track"]["id"]
-            spotify_id.append(spotify_id)
+            spotify_id.append(track_id)
             song_name.append(song["track"]["name"])
             artist_list = []
             for artist in song["track"]["artists"]:
@@ -180,11 +180,11 @@ class RecentlyPlayed:
         """
 
         engine = sqlalchemy.create_engine(file_path)
-        connection = sqlite3.connect("my_played_tracks.sqlite")
+        connection = sqlite3.connect("recently_played_tracks.sqlite")
         cursor = connection.cursor()
 
         sql_query = """
-            CREATE TABLE IF NOT EXISTS my_played_tracks(
+            CREATE TABLE IF NOT EXISTS recently_played_tracks(
                 spotify_id VARCHAR(200),
                 song_name VARCHAR(200),
                 artist_name VARCHAR(200),
@@ -193,7 +193,7 @@ class RecentlyPlayed:
                 album_release_date DATE,
                 song_duration_ms MEDIUMINT,
                 song_popularity TINYINT,
-                dancability FLOAT(10, 9),
+                danceability FLOAT(10, 9),
                 energy FLOAT(10, 9),
                 key TINYINT,
                 loudness FLOAT(11, 9),
@@ -212,10 +212,8 @@ class RecentlyPlayed:
         cursor.execute(sql_query)
         print("Opened database successfully")
 
-        try:
-            self.data.to_sql("my_played_tracks", engine, index=False, if_exists='append')
-        except:
-            print("Data already exists in the database")
+
+        self.data.to_sql("recently_played_tracks.sqlite", engine, index=False, if_exists='append')
 
         connection.close()
         print("Database closed")
