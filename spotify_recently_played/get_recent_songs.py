@@ -142,6 +142,8 @@ class RecentlyPlayed:
         :return: bool
         """
 
+        print(f"executing spotify ETL @ {datetime.today().strftime('%Y-%m-%d %H:%M:%S')}")
+
         # check that a dataframe has been created
         # if no dataframe has been created our program has failed
         if self.data is None:
